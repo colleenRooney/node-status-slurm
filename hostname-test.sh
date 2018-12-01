@@ -26,6 +26,8 @@ done
 
 rm $OUTPUT_DIR/*.log
 
+echo
+echo Nodes that produced errors:
 for err in $OUTPUT_DIR/*.err; do
     size=( $(stat --printf="%s" $err) )
     if [[ $size == '0' ]] 

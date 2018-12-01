@@ -38,11 +38,11 @@ def sep_nodes(node_type, partition, node_range, node_list=[]):
         node_list.append(node_type + node_number)
 
 
-def get_idle_nodes(partition=''):
+def get_idle_nodes(partition='', state='idle'):
     """Returns the idle nodes using the SLURM sinfo command. If a partition
     is specified only idle nodes of that partition will be returned"""
     # get data from sinfo
-    grep_string = partition + '.*idle'
+    grep_string = partition + '.*' + state
     sinfo_out = subprocess.Popen(['sinfo'], stdout=subprocess.PIPE)
 
     # this could be fixed to work with other configurations, duplicates just
