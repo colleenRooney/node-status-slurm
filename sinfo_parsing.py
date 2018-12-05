@@ -35,7 +35,8 @@ def sep_nodes(node_type, partition, node_range, node_list=[]):
 
     elif len(start_end) == 1:
         node_number = node_pretty(str(start_end[0]))
-        node_list.append(node_type + node_number)
+        node_list.append({'node':node_type + node_number,
+                            'partition':partition})
 
 
 def get_idle_nodes(partition='', state='idle'):
