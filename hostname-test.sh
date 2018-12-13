@@ -22,6 +22,7 @@ rm temp_sub.sh temp.sh
 
 while [  $(ls hostname-output | wc -l) -lt $num_idle_array ]; do
     echo waiting for output
+    sleep 5
 done
 
 rm $OUTPUT_DIR/*.log
