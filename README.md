@@ -1,7 +1,6 @@
 # node-status-slurm
 ###### Developed due to "slurmstepd: error: task/cgroup: unable to add task[pid=#] to memory cg '(null)'" errors
 Simple scripts for node testing on a cluster with a slurm job scheduler.
-Created to detect when nodes are producing errors.
 
 This was made specifically for the coeus HPC at Portland State University and has some code in sinfo_parsing.py specific to this cluster. These sections are marked with comments containing "specific to coeus". 
 
