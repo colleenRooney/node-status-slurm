@@ -3,7 +3,7 @@
 
 OUTPUT_DIR=hostname-output
 
-nodes=( $(./get-idle-nodes.py -v) )
+nodes=( $(./list-nodes.py -v) )
 num_idle_array=${#nodes[@]}
 
 mkdir -p $OUTPUT_DIR

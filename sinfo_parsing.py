@@ -21,13 +21,13 @@ def sep_nodes(node_type, partition, node_range, node_list=[]):
     (default empty list) and returns the list"""
     start_end = node_range.split('-')
 
-    # janky fix... should really use regex incase name of default partition
-    # changes
+    # janky fix... should really use regex to handle name of default partition
+    # specific to coeus
     if partition == "medium*": partition = "medium"
 
     if len(start_end) == 2:
         for node in range(int(start_end[0]), int(start_end[1]) + 1):
-            # specific to our cluster 
+            # specific coeus 
             compute = False if node_type != "compute" else True
             node_number = node_pretty(str(node), compute)
             node_list.append({'node':node_type + node_number,
@@ -46,11 +46,12 @@ def get_idle_nodes(partition='', state='idle'):
     grep_string = partition + '.*' + state
     sinfo_out = subprocess.Popen(['sinfo'], stdout=subprocess.PIPE)
 
-    # this could be fixed to work with other configurations, duplicates just
-    # need to be removed
+    # specific to coeus this could be fixed to work with other configurations
+    # allcpu contains dupicate nodes, code could be altered to generalize
+    # deletion of duplicates
     if partition != 'allcpu':
-        no_allcpu = subprocess.Popen(['grep', '-v', 'allcpu'], stdin=sinfo_out.stdout,
-        stdout=subprocess.PIPE)
+        no_allcpu = subprocess.Popen(['grep', '-v', 'allcpu'],
+        stdin=sinfo_out.stdout, stdout=subprocess.PIPE)
         sinfo_out = no_allcpu
 
     grep_out = subprocess.Popen(['grep', grep_string], stdin=sinfo_out.stdout,
@@ -66,7 +67,8 @@ def get_idle_nodes(partition='', state='idle'):
 
     idle_nodes = []
     for line in idle_lines:
-        # extract node type and numbers... specfic to our cluster
+        # extract node type and numbers... specfic to coeus
+        # replace regex to match node names
         match = re.match('((compute)|(himem)|(phi))\[(.*)\]', line['nodes'])
         partition = line['partition']
 
