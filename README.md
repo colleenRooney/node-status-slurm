@@ -1,4 +1,5 @@
 # node-status-slurm
+###### Developed due to "slurmstepd: error: task/cgroup: unable to add task[pid=#] to memory cg '(null)'" errors
 Simple scripts for node testing on a cluster with a slurm job scheduler.
 Created to detect when nodes are producing errors.
 
