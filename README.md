@@ -10,9 +10,9 @@ This was made specifically for the coeus HPC at Portland State University and ha
 depends:
 * sinfo_parsing.py
 
-#### hostname-test.sh
-Creates the directory specified by 'OUTPUT_DIR' (currently defined in script) then submits a job to all idle nodes that runs the command 'hostname'. All nodes that produced errors are printed. If an error file is produced it is saved in the output directory, all other output files are removed.
+#### run
+'./run-on-idle -h' will print options to standard out. Runs a sbatch script on all idle nodes. Sbatch script is defined with '-s' or '--script' option. 'hostname.sh' is a simple example. Creates the directory specified by the 'o' or '--outdir' option, or the default directory of '/scratch/utils/test-nodes-output' then submits a job to all idle nodes. All nodes that produced errors are printed. If an error file is produced it is saved in the output directory, all other output files are removed.
 
 depends:
 * list-nodes.py
-* hostname.sh
+* sinfo_parsing.py
