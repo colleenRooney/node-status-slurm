@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Script that prints idle nodes to terminal
+# Script that prints nodes in specific state to terminal
 # uses SLURM sinfo command
 # 2018 Colleen Rooney
 from sinfo_parsing import *
@@ -17,8 +17,8 @@ partition = args.partition if args.partition else ''
 state = args.state if args.state else 'idle'
 
 
-idle_nodes = get_idle_nodes(partition=partition, state=state)
+nodes = get_idle_nodes(partition=partition, state=state)
 
-for node in idle_nodes:
+for node in nodes:
     part = node['partition'] if args.verbose else ''
     print("%s %s" % (node['node'], part))

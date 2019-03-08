@@ -25,16 +25,16 @@ def sep_nodes(node_type, partition, node_range, node_list=[]):
     # specific to coeus
     if partition == "medium*": partition = "medium"
 
+    compute = False if node_type != "compute" else True
     if len(start_end) == 2:
         for node in range(int(start_end[0]), int(start_end[1]) + 1):
-            # specific coeus 
-            compute = False if node_type != "compute" else True
+            # specific to coeus 
             node_number = node_pretty(str(node), compute)
             node_list.append({'node':node_type + node_number,
                                 'partition':partition})
 
     elif len(start_end) == 1:
-        node_number = node_pretty(str(start_end[0]))
+        node_number = node_pretty(str(start_end[0]), compute)
         node_list.append({'node':node_type + node_number,
                             'partition':partition})
 
@@ -69,10 +69,10 @@ def get_idle_nodes(partition='', state='idle'):
     for line in idle_lines:
         # extract node type and numbers... specfic to coeus
         # replace regex to match node names
-        match = re.match('((compute)|(himem)|(phi))\[(.*)\]', line['nodes'])
+        match = re.match('((compute)|(himem)|(phi))(.*)', line['nodes'])
         partition = line['partition']
 
-        node_list = match.group(5).split(',')
+        node_list = match.group(5).replace('[', '').replace(']', '').split(',')
         node_type = match.group(1)
         for node_range in node_list:
             sep_nodes(node_type, partition, node_range, node_list=idle_nodes)
